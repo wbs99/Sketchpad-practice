@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画板</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="canvas"></div>
+    <script>
+        canvas.onclick = (e) => {
+            // 通过console.log得到鼠标的位置
+            console.log(e.clientX)
+            console.log(e.clientY)
+            // 让文档创建一个标签，下面这局就是创建一个div
+            let div = document.createElement('div')
+            // 让div出现在X和Y的位置，使用绝对定位，并创建div的样式
+            div.style.position ='absolute'
+            div.style.left = e.clientX + 'px'
+            div.style.top = e.clientY +'px'
+            div.style.border = '1px solid red'
+            div.style.width = '6px'
+            div.style.height = '6px'
+            // 鼠标点击的时候让鼠标出现在div的中间位置
+            div.style.marginLeft = '-3px'
+            div.style.marginTop = '-3px'
+            // 让div变成圆的
+            div.style.borderRadius = '50%'
+            // 黑色圆
+            div.style.backgroundColor = 'black'
+            // 让div出现在canvas中
+            canvas.appendChild(div)
+        }
+    </script>
+</body>
+</html>
