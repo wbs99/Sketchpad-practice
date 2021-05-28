@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>画板</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="canvas"></div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
     <script>
-        canvas.onmousemove = (e) => {
-            // 通过console.log得到鼠标的位置
-            console.log(e.clientX)
-            console.log(e.clientY)
-            // 让文档创建一个标签，下面这局就是创建一个div
-            let div = document.createElement('div')
-            // 让div出现在X和Y的位置，使用绝对定位，并创建div的样式
-            div.style.position ='absolute'
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY +'px'
-            div.style.width = '6px'
-            div.style.height = '6px'
-            // 鼠标点击的时候让鼠标出现在div的中间位置
-            div.style.marginLeft = '-3px'
-            div.style.marginTop = '-3px'
-            // 让div变成圆的
-            div.style.borderRadius = '50%'
-            // 黑色圆
-            div.style.backgroundColor = 'black'
-            // 让div出现在canvas中
-            canvas.appendChild(div)
+      // JS获取屏幕宽高,用这个宽高去设置canvas的宽高,让宽度和高度变成文档的宽度和高度
+      let canvas = document.getElementById("canvas");
+      canvas.width = document.documentElement.clientWidth;
+      canvas.height = document.documentElement.clientHeight;
+      // 通过id找到canvas
+      let ctx = canvas.getContext("2d");
+
+      let painting = false;
+      canvas.onmousedown = () => {
+        painting = true;
+      };
+      canvas.onmouseup = () => {
+        painting = false;
+      };
+      ctx.fillStyle = "black";
+      ctx.strokeStyle = "none";
+
+      canvas.onmousemove = (e) => {
+        if (painting === true) {
+          ctx.beginPath();
+          ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI);
+          ctx.stroke();
+          ctx.fill();
+        } else {
+          console.log = "什么都不做";
         }
+      };
     </script>
-</body>
+  </body>
 </html>
